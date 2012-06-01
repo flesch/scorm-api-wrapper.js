@@ -92,7 +92,7 @@
     if (cache[model]) { return cache[model]; }
     if (api) {  
       if ((value = api.LMSGetValue(model)) && +api.LMSGetLastError() === 0) {
-        cache[model] = value;
+        cache[model] = JSON.parse(value);
         return cache[model];
       }
     }
