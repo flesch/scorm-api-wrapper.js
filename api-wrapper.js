@@ -1,6 +1,6 @@
 !(function () {
 
-  var api, container, frame, session, cache = [], store = [], breaker = {}, prefix, methods, keepalive,
+  var api, container, frame, session, cache = {}, store = [], breaker = {}, prefix, methods, keepalive,
   // Save bytes in the minified version.
   array_proto = Array.prototype,
   native_forEach = array_proto.forEach,
