@@ -14,15 +14,7 @@ At Verizon Wireless, we have a PeopleSoft based LMS and as with any enterprise s
 
 ## Usage
 
-`api-wrapper.js` is intended to be a drop in replacement for ADL's wrapper. As a developer, you won't need to change any of your code. Simply overwrite your old API wrapper with this one.
-
-## Dependencies
-
-`api-wrapper.js` assumes the browser you're using supports *JSON*. We use [json2.js](https://github.com/douglascrockford/JSON-js) in our courses, or you can easily remove that dependency.
-
-We didn't want to have to serialize objects before _setting_ them:
-
-    LMSSetValue("cmi.suspend_data", {"key":"value"});
+`api-wrapper.js` is intended to be a drop in replacement for ADL's wrapper. As a developer, you won't need to change any of your code. Simply overwrite your old API wrapper with this one. (You might need to rename it to `APIWrapper.js`, but the point is that your code doesn't need to change.)
 
 ## Limitations
 

@@ -92,7 +92,7 @@
     if (cache[model]) { return cache[model]; }
     if (api) {  
       if ((value = api.LMSGetValue(model)) && +api.LMSGetLastError() === 0) {
-        cache[model] = JSON.parse(value);
+        cache[model] = value;
         return cache[model];
       }
     }
@@ -100,7 +100,7 @@
   }
 
   function LMSSetValue(model, value) {
-    cache[model] = (typeof value !== "string") ? JSON.stringify(value) : value;
+    cache[model] = value;
     if (!contains(store, model)) { store.push(model); }
     return cache[model];
   }
