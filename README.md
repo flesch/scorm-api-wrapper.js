@@ -14,7 +14,7 @@ At Verizon Wireless, we have a PeopleSoft based LMS and as with any enterprise s
 
 ## Usage
 
-`api-wrapper.js` is intended to be a drop in replacement for ADL's wrapper. As a developer, you won't need to change any of your code. Simply overwrite your old API wrapper with this one. (You might need to rename it to `APIWrapper.js`, but the point is that your code doesn't need to change.) [https://github.com/vzw/api-wrapper.js](https://github.com/vzw/api-wrapper.js) 
+`api-wrapper.js` is intended to be a drop in replacement for ADL's wrapper. As a developer, you won't need to change any of your code. Simply overwrite your old API wrapper with this one. (You might need to rename it to `APIWrapper.js`, but the point is that your code doesn't need to change.) 
 
 ## Limitations
 
