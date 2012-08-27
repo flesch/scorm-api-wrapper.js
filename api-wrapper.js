@@ -154,6 +154,7 @@
 
       if (!keepalive) {
         keepalive = window.setInterval(function(){
+          LMSSetValue("cmi.core.lesson_location", LMSGetValue("cmi.core.lession_location"));
           if (!LMSCommit()) {
             window.clearInterval(keepalive);
             if (window.onLMSConnectionError) {
