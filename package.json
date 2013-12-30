@@ -1,0 +1,26 @@
+{
+  "name": "api-wrapper.js",
+  "version": "0.0.0",
+  "description": "A drop-in replacement for ADL's original SCORM 1.2 API wrapper.",
+  "main": "api-wrapper-min.js",
+  "dependencies": {
+    "underscore": "~1.5.2"
+  },
+  "devDependencies": {
+    "browserify": "~3.18.0",
+    "uglifyjs": "~2.3.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vzw/api-wrapper.js.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/vzw/api-wrapper.js/issues"
+  },
+  "homepage": "https://github.com/vzw/api-wrapper.js"
+}

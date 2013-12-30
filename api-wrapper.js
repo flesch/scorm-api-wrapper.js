@@ -1,10 +1,7 @@
 !(function () {
-
-  var api, container, frame, session, cache = {}, store = [], breaker = {}, prefix, methods, keepalive,
-  // Save bytes in the minified version.
-  array_proto = Array.prototype,
-  native_forEach = array_proto.forEach,
-  native_every = array_proto.every;
+  
+  var api, container, frame, session, cache = {}, store = [], prefix, methods, keepalive
+    , _ = require("underscore");
 
   // Capture the LMS API. We only need to search for it once, so we can cache it in a variable and re-use it.
   // Some SCORM API Wrappers will search for the API with every SCORM command. Is it really going to move?
@@ -30,53 +27,6 @@
     // Return the API Object.
     return container.API;
   }).call(this);
-  
-  // https://github.com/documentcloud/underscore/blob/master/underscore.js#L75
-  function each(obj, iterator, context) {
-    if (obj === null) { return; }
-    if (native_forEach && obj.forEach === native_forEach) {
-      obj.forEach(iterator, context);
-    } else if (obj.length === +obj.length) {
-      for (var i = 0, l = obj.length; i < l; i++) {
-        if (i in obj && iterator.call(context, obj[i], i, obj) === breaker) {
-          return;
-        }
-      }
-    } else {
-      for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          if (iterator.call(context, obj[key], key, obj) === breaker) {
-            return;
-          }
-        }
-      }
-    }
-  }
-
-  // https://github.com/documentcloud/underscore/blob/master/underscore.js#L175
-  function every(obj, iterator, context) {
-    var result = true;
-    if (obj === null) { return result; }
-    if (native_every && obj.every === native_every) {
-      return obj.every(iterator, context);
-    }
-    each(obj, function(value, index, list) {
-      if (!(result = result && iterator.call(context, value, index, list))) {
-        return breaker;
-      }
-    });
-    return result;
-  }
-
-  function contains(a, obj) {
-    var i = a.length;
-    while (i--) {
-      if (a[i] === obj) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   // Returns a HHHH:MM:SS
   function format_duration(start, end) {
@@ -101,7 +51,7 @@
 
   function LMSSetValue(model, value) {
     cache[model] = value;
-    if (!contains(store, model)) { store.push(model); }
+    if (!_.contains(store, model)) { store.push(model); }
     return cache[model];
   }
 
@@ -120,7 +70,7 @@
   function LMSCommit() {
     var commit = false;
     if (api) {
-      commit = every(store, function(model, index, list){
+      commit = _.every(store, function(model, index, list){
         if (api.LMSSetValue(model, cache[model]) === "true" && +api.LMSGetLastError() === 0) {
           return true;
         }
