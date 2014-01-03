@@ -19,11 +19,11 @@ At Verizon Wireless, we have a PeopleSoft based LMS, and as with any enterprise 
 
 ## Developing
 
-`api-wrapper.js` won't work direclty in a course. We're using **Browserify** to include **Underscore** so you need to create a build before testing.
+```
+$ npm run build
 
 ```
-$ browserify api-wrapper.js | uglifyjs > api-wrapper-min.js
-```
+This will output `dist/api-wrapper.js`, which you can use in your course.
 
 
 ## Limitations

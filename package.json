@@ -11,6 +11,7 @@
     "uglifyjs": "~2.3.6"
   },
   "scripts": {
+    "build": "browserify src/api-wrapper.js | uglifyjs > dist/api-wrapper.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
