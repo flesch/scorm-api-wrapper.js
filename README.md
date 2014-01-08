@@ -20,9 +20,10 @@ At Verizon Wireless, we have a PeopleSoft based LMS, and as with any enterprise 
 ## Developing
 
 ```
+$ npm install
 $ npm run build
-
 ```
+
 This will output `dist/api-wrapper.js`, which you can use in your course.
 
 
