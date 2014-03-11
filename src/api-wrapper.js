@@ -1,6 +1,6 @@
 !(function () {
   
-  var api, container, frame, session, cache = {}, store = [], prefix, methods, keepalive
+  var root, wrapper, api, container, frame, session, cache = {}, store = [], prefix, methods, keepalive
     , _ = require("underscore");
 
   // Capture the LMS API. We only need to search for it once, so we can cache it in a variable and re-use it.
@@ -141,30 +141,48 @@
     return false;
   }
 
-  // Change  
   function to_string(fn) {
     return function(){
       return fn.apply(window, arguments).toString();  
     }
   }
 
-  // Yay, now let's pollute the global object with all these SCORM methods.
-  window.getAPI = window.findAPI = window.getAPIHandle = function () { return api; };
-  window.LMSInitialize = LMSInitialize;
-  window.LMSCommit = LMSCommit;
-  window.LMSFinish = LMSFinish;
-  window.LMSGetValue = LMSGetValue;
-  window.LMSSetValue = LMSSetValue;
-  window.LMSGetLastError = LMSGetLastError;
-  window.LMSGetErrorString = LMSGetErrorString;
-  window.LMSGetDiagnostic = LMSGetDiagnostic;
-  window.doLMSInitialize = to_string(LMSInitialize);
-  window.doLMSCommit = to_string(LMSCommit);
-  window.doLMSFinish = to_string(LMSFinish);
-  window.doLMSGetValue = to_string(LMSGetValue);
-  window.doLMSSetValue = to_string(LMSSetValue);
-  window.doLMSGetLastError = to_string(LMSGetLastError);
-  window.doLMSGetErrorString = to_string(LMSGetErrorString);
-  window.doLMSGetDiagnostic = to_string(LMSGetDiagnostic);
+  root = this;
 
+  wrapper = {
+  
+    getAPI: function () { return api; },
+    findAPI: function () { return api; },
+    getAPIHandle: function () { return api; },
+    LMSInitialize: LMSInitialize,
+    LMSCommit: LMSCommit,
+    LMSFinish: LMSFinish,
+    LMSGetValue: LMSGetValue,
+    LMSSetValue: LMSSetValue,
+    LMSGetLastError: LMSGetLastError,
+    LMSGetErrorString: LMSGetErrorString,
+    LMSGetDiagnostic: LMSGetDiagnostic,
+    doLMSInitialize: to_string(LMSInitialize),
+    doLMSCommit: to_string(LMSCommit),
+    doLMSFinish: to_string(LMSFinish),
+    doLMSGetValue: to_string(LMSGetValue),
+    doLMSSetValue: to_string(LMSSetValue),
+    doLMSGetLastError: to_string(LMSGetLastError),
+    doLMSGetErrorString: to_string(LMSGetErrorString),
+    doLMSGetDiagnostic: to_string(LMSGetDiagnostic)
+  
+  };
+
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = wrapper;
+    }
+    exports.wrapper = wrapper;
+  } else {
+    root.wrapper = wrapper;
+  }
+
+  // Yay, now let's pollute the global object with all these SCORM methods.  
+  _.extend(window, wrapper);
+  
 }).call(this);
