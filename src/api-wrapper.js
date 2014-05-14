@@ -13,7 +13,7 @@
     // If the API isn't in the current window, look backwards for it.
     if (!container.API) {
       // First, we'll try any parent frames.
-      if (container !== container.parent) {
+      if (container.parent && container !== container.parent) {
         return self.call(this, container.parent);
       }
       // Then, any `opener` windows.
@@ -21,7 +21,7 @@
         return self.call(this, container.opener);
       }
     }
-    if (container.parent.frames && "SCODataFrame" in container.parent.frames) {
+    if (container.parent && container.parent.frames && "SCODataFrame" in container.parent.frames) {
       frame = container.parent.frames.SCODataFrame;
     }
     // Return the API Object.
@@ -182,4 +182,4 @@
     }
   }
 
-}).call(this);
+})(this);
