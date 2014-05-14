@@ -109,13 +109,10 @@
           LMSSetValue("cmi.core.lesson_location", LMSGetValue("cmi.core.lession_location"));
           if (!LMSCommit()) {
             global.clearInterval(keepalive);
-            if (global.onLMSConnectionError) {
-              global.onLMSConnectionError();
-            }
+            psst.emit("LMSConnectionError");
           }
         }, 300000); // 5 minutes
       }
-
       return true;
     }
     return false;
