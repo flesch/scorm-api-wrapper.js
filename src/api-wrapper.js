@@ -1,7 +1,9 @@
 (function(global){
 
   var apiwrapper, api, container, frame, session, cache = {}, store = [], keepalive
-    , _ = require("underscore");
+    , _ = require("underscore")
+    , psst = require("psst")
+    ;
 
   // Capture the LMS API. We only need to search for it once, so we can cache it in a variable and re-use it.
   // Some SCORM API wrappers will search for the API with every SCORM command. Is it really going to move?
@@ -170,6 +172,8 @@
     doLMSGetDiagnostic: to_string(LMSGetDiagnostic)
 
   };
+
+  _.extend(apiwrapper, psst);
 
   if (typeof define === 'function' && define.amd) {
     define(function(){ return apiwrapper; });
