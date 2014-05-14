@@ -5,11 +5,11 @@
 
   // Capture the LMS API. We only need to search for it once, so we can cache it in a variable and re-use it.
   // Some SCORM API wrappers will search for the API with every SCORM command. Is it really going to move?
-  api = (function (search) {
+  api = (function(search){
     // We've made the `container` variable accessible outside of this function, as we'll
     // want to interact with the DOMWindow that holds the API.
     var self = arguments.callee;
-    container = search || window;
+    container = search || global;
     // If the API isn't in the current window, look backwards for it.
     if (!container.API) {
       // First, we'll try any parent frames.
