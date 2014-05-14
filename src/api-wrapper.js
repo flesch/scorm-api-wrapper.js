@@ -1,6 +1,6 @@
 (function(global){
 
-  var apiwrapper, api, container, frame, session, cache = {}, store = [], prefix, methods, keepalive
+  var apiwrapper, api, container, frame, session, cache = {}, store = [], keepalive
     , _ = require("underscore");
 
   // Capture the LMS API. We only need to search for it once, so we can cache it in a variable and re-use it.
