@@ -1,10 +1,10 @@
-!(function () {
-  
-  var root, wrapper, api, container, frame, session, cache = {}, store = [], prefix, methods, keepalive
+(function(global){
+
+  var apiwrapper, api, container, frame, session, cache = {}, store = [], prefix, methods, keepalive
     , _ = require("underscore");
 
   // Capture the LMS API. We only need to search for it once, so we can cache it in a variable and re-use it.
-  // Some SCORM API Wrappers will search for the API with every SCORM command. Is it really going to move?
+  // Some SCORM API wrappers will search for the API with every SCORM command. Is it really going to move?
   api = (function (search) {
     // We've made the `container` variable accessible outside of this function, as we'll
     // want to interact with the DOMWindow that holds the API.
@@ -40,7 +40,7 @@
   function LMSGetValue(model) {
     var value;
     if (cache[model]) { return cache[model]; }
-    if (api) {  
+    if (api) {
       if ((value = api.LMSGetValue(model)) && +api.LMSGetLastError() === 0) {
         cache[model] = value;
         return cache[model];
@@ -119,7 +119,7 @@
     return false;
   }
 
-  function LMSFinish() {  
+  function LMSFinish() {
     if (api) {
       // Let's track how long the user's session was.
       LMSSetValue("cmi.core.session_time", format_duration(session, +new Date));
@@ -143,14 +143,12 @@
 
   function to_string(fn) {
     return function(){
-      return fn.apply(window, arguments).toString();  
+      return fn.apply(window, arguments).toString();
     }
   }
 
-  root = this;
+  apiwrapper = {
 
-  wrapper = {
-  
     getAPI: function () { return api; },
     findAPI: function () { return api; },
     getAPIHandle: function () { return api; },
@@ -170,19 +168,18 @@
     doLMSGetLastError: to_string(LMSGetLastError),
     doLMSGetErrorString: to_string(LMSGetErrorString),
     doLMSGetDiagnostic: to_string(LMSGetDiagnostic)
-  
+
   };
 
-  if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = wrapper;
-    }
-    exports.wrapper = wrapper;
+  if (typeof define === 'function' && define.amd) {
+    define(function(){ return apiwrapper; });
+  } else if (typeof module !== 'undefined' && module.exports) {
+    module.exports = apiwrapper;
   } else {
-    root.wrapper = wrapper;
+    global['apiwrapper'] = apiwrapper;
+    if (typeof window !== 'undefined' && global === window) {
+      _.extend(global, apiwrapper);
+    }
   }
 
-  // Yay, now let's pollute the global object with all these SCORM methods.  
-  _.extend(window, wrapper);
-  
 }).call(this);

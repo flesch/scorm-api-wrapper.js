@@ -12,8 +12,8 @@
     "watchify": "^0.9.0"
   },
   "scripts": {
-    "build": "browserify src/api-wrapper.js | uglifyjs > dist/api-wrapper.js",
-    "watch": "watchify src/api-wrapper.js -d -o dist/api-wrapper.js -v",
+    "build": "browserify --s apiwrapper src/api-wrapper.js | uglifyjs > dist/api-wrapper.js",
+    "watch": "watchify src/api-wrapper.js -d --s apiwrapper -o dist/api-wrapper.js -v",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
