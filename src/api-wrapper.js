@@ -104,13 +104,13 @@
         frame.displaySuccess = function(){};
       }
 
-      if (!keepalive) {
-        keepalive = window.setInterval(function(){
+      if (!keepalive && typeof window !== "undefined" && global === window) {
+        keepalive = global.setInterval(function(){
           LMSSetValue("cmi.core.lesson_location", LMSGetValue("cmi.core.lession_location"));
           if (!LMSCommit()) {
-            window.clearInterval(keepalive);
-            if (window.onLMSConnectionError) {
-              window.onLMSConnectionError();
+            global.clearInterval(keepalive);
+            if (global.onLMSConnectionError) {
+              global.onLMSConnectionError();
             }
           }
         }, 300000); // 5 minutes
